@@ -7,6 +7,7 @@ public class Admin extends User implements IAdmin{
 
 	@Override
 	public void createCourse(String courseName, String courseId, String courseInstructor, String sectionNumber, String location, int maxReg) {
+
 		CourseData.addCourse(courseName, courseId, courseInstructor, sectionNumber, location, maxReg);
 	}
 
@@ -23,15 +24,31 @@ public class Admin extends User implements IAdmin{
 	}
 
 	@Override
-	public Course displayCourseInfo(String courseId) {
+	public void displayCourseInfo(String courseId, String sectionNumber) {
+		String resp;
+		Scanner sc = new Scanner(System.in);
 		boolean isFound = false;
 		for(Course i: CourseData.getAllCourses()) {
-			if(i.getCourseId().equals(courseId)) {
-				isFound = true;
-				return i;
+			if(i.getCourseId().equals(courseId)&&i.getSectionNumber().equals(sectionNumber)) {
+				System.out.println("1. List of students enrolled in class");
+				
+				System.out.println("2. General Class info");
+				
+				resp = sc.nextLine();
+				switch(Integer.parseInt(resp)) {
+				case 1:
+					for(Student k: i.getListOfReg()) {
+						System.out.print(k.getFname()+" "+k.getLname()+",");
+					}
+					break;
+				case 2:
+					System.out.println("Name: "+i.getCourseName()+"\nID:"+i.getCourseId()+"\n Instructor: "+i.getCourseInstructor()+ "\n  Section Number: "+i.getSectionNumber());
+					System.out.println("Location"+i.getLocation()+"\n Max Capacity: "+i.getMaxReg());
+					break;
+				}
 			}
 		}
-		return new Course("not found","not found","not found","not found","not found",0);
+		
 	}
 
 	@Override
@@ -40,15 +57,12 @@ public class Admin extends User implements IAdmin{
 	}
 
 	@Override
-	public void Exit() {
-		// TODO Auto-generated method stub
+	public void Exit () {
+		
 		
 	}
 
-	@Override
-	public ArrayList<Course> viewALlCourses() {
-		return CourseData.getAllCourses();		
-	}
+	
 
 	@Override
 	public void viewAllFull() {

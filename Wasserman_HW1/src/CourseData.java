@@ -5,7 +5,7 @@ public class CourseData {
 	private static ArrayList<User> allUsers;
 	public static String adminUsername;
 	public static String adminPassword;
-	public static void main(String[] args) {
+	public static void main() {
 		allCourses = new ArrayList<Course>();
 		allStudents = new ArrayList<Student>();
 		allUsers = new ArrayList<User>();
@@ -25,14 +25,17 @@ public class CourseData {
 		allStudents.add(new Student(username,password,fname,lname));
 	}
 	public static void addCourse(String courseName, String courseId, String courseInstructor, String sectionNumber, String location, int maxReg) {
-		allCourses.add(new Course(courseName,courseId,courseInstructor,sectionNumber,location,maxReg));
+
+		Course a = new Course(courseName,courseId,courseInstructor,sectionNumber,location,maxReg);
+		allCourses.add(a);
 	}
 	public static void removeCourse(String courseId, String sectionNumber) {
 		for(Course i: CourseData.getAllCourses()) {
-			if(i.getCourseId().equals(courseId)) {
+			if(i.getCourseId().equals(courseId)&&i.getSectionNumber().equals(sectionNumber)) {
 				allCourses.remove(CourseData.getAllCourses().indexOf(i));
 			}
 		}
+		
 	}
 	
 }

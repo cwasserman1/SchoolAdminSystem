@@ -56,6 +56,12 @@ public class Course {
 	public int getCurrentReg() {
 		return currentReg;
 	}
+	public boolean checkFull() {
+		if(currentReg == maxReg) {
+			return true;
+		}
+		return false;
+	}
 	public boolean addStudent(Student e) { //This method is called when adding a student. Increments currentReg if space is available. Returns true if student was added and false if student was not added.
 		
 		if(currentReg+1 > maxReg) {
