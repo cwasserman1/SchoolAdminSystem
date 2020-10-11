@@ -11,25 +11,48 @@ public class Student extends User implements IStudent{
 
 	@Override
 	public void viewOpenCourses() {
-		
+		int count = 0;
+		for(Course i : CourseData.getAllCourses())
+		{
+			if(i.checkFull()==false) {
+			count++;
+			System.out.println("Course"+count);
+			System.out.println(" Name: "+i.getCourseName()+"\n ID: "+i.getCourseId()+"\n Instructor: "+i.getCourseInstructor()+ "\n Section Number: "+i.getSectionNumber());
+			System.out.println(" Location: "+i.getLocation()+"\n Max Capacity: "+i.getMaxReg());}
+		}
 		
 	}
 
 	@Override
-	public void enrollInCourse() {
-		// TODO Auto-generated method stub
+	public void enrollInCourse(String courseId, String sectionNumber) {
+		for(int i = 0; i<CourseData.getAllCourses().size();i++) {
+			if(CourseData.getAllCourses().get(i).getCourseId().equals(courseId)&&CourseData.getAllCourses().get(i).getSectionNumber().equals(sectionNumber)) {
+				CourseData.getAllCourses().get(i).addStudent(new Student(username,password,fname,lname));
+			}
+		}
 		
 	}
    
 	@Override
-	public void dropCourse() {
-		// TODO Auto-generated method stub
+	public void dropCourse(String courseId, String sectionNumber) {
+		for(Course i: schedule) {
+			if(i.getCourseId().equals(courseId)&&i.getSectionNumber().equals(sectionNumber)) {
+				schedule.remove(schedule.indexOf(i));
+			}
+		}
 		
 	}
 
 	@Override
 	public void viewCurrentReg() {
-		
+		int count = 0;
+		for(Course i : schedule)
+		{
+			count++;
+			System.out.println("Course"+count);
+			System.out.println(" Name: "+i.getCourseName()+"\n ID: "+i.getCourseId()+"\n Instructor: "+i.getCourseInstructor()+ "\n Section Number: "+i.getSectionNumber());
+			System.out.println(" Location: "+i.getLocation()+"\n Max Capacity: "+i.getMaxReg());
+		}
 	}
 
 	@Override

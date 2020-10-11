@@ -5,10 +5,15 @@ public class Main {
 	
 	static boolean isAdmin;
 	static CourseData myData;
+	static boolean isStudent;
 	private static Admin myAdmin;
+	private static String adminUsername;
+	private static String adminPassword;
 	public static boolean goBack;
 	public static boolean isRunning;
 	public static void main(String[] args) {
+		adminUsername = "Admin";
+		adminPassword = "Admin001";
 		CourseData.main();
 		goBack = false;
 		myData = new CourseData();
@@ -20,22 +25,46 @@ public class Main {
 		login();
 		}while(isRunning);
 		
-		//
+		
 	}
 	public static void login(){
 		Scanner sc = new Scanner(System.in);
 		String resp;
-		
+		String enteredUsername, enteredPassword;
 		System.out.println("1. Admin Login");
 		System.out.println("2.  Student Login");
 		System.out.println("2.  Exit");
 		resp = sc.nextLine();
-		
 		switch(Integer.parseInt(resp)) {
 		case 1:
-			adminUI();
+			System.out.println("Username: ");
+			enteredUsername = sc.nextLine();
+			System.out.println("Password: ");
+			
+			enteredPassword = sc.nextLine();
+			if(enteredUsername.equals(adminUsername) && enteredPassword.equals(adminPassword)) {
+				System.out.println("You are logged in as: Admin");
+				adminUI();	
+			} else {
+				System.out.println("The username or password you entered is wrong");
+				login();
+			}
+			
 		case 2:
-			studentUI();
+			System.out.println("Username: ");
+			enteredUsername = sc.nextLine();
+			System.out.println("Password: ");
+			enteredPassword = sc.nextLine();
+			for(Student i: CourseData.getAllStudents()) {
+				if(i.getUsername().equals(enteredUsername)&&i.getPassword().equals(enteredPassword)){
+					System.out.println("You are logged in as "+ i.getFname()+" "+i.getLname());
+					studentUI();
+				} else {
+					System.out.println("The username or password you entered is wrong");
+					studentUI();
+				}
+			}
+			
 		case 3:
 			isRunning = false;
 		}
@@ -50,6 +79,7 @@ public class Main {
 		do {
 		boolean isMakingCourse = false;
 		System.out.println("Options: \n 1. Create Course \n 2. Delete a course \n 3. Edit a course \n 4. Display info for a particular course \n 5. Register a student into the System \n 6. View all courses \n 7. View all full courses \n 8. Save a file of currently full courses \n 9. Sort Courses based on number of registered Students \n 10. Exit");
+		
 		int resp = Integer.parseInt(scanner.nextLine());
 		Scanner response = new Scanner(System.in);
 		
@@ -154,9 +184,11 @@ public class Main {
 			break;
 		case 10:
 			isAdmin = false;
+			login();
 		}
 		
 	}while(isAdmin);}
+	
 	public static void studentUI() {
 		
 	}}

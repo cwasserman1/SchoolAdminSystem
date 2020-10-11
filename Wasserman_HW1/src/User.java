@@ -1,6 +1,6 @@
 
 public class User {
-	private String username, password, fname, lname;
+	protected String username, password, fname, lname;
 
 	public User(String username, String password, String fname, String lname) {
 		this.username = username;

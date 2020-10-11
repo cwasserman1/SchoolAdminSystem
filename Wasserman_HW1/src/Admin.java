@@ -43,7 +43,7 @@ public class Admin extends User implements IAdmin{
 					break;
 				case 2:
 					System.out.println("Name: "+i.getCourseName()+"\nID:"+i.getCourseId()+"\n Instructor: "+i.getCourseInstructor()+ "\n  Section Number: "+i.getSectionNumber());
-					System.out.println("Location"+i.getLocation()+"\n Max Capacity: "+i.getMaxReg());
+					System.out.println("Location"+i.getLocation()+"\n Max Capacity: "+i.getMaxReg()+"Current number enrolled: "+ i.getCurrentReg());
 					break;
 				}
 			}
