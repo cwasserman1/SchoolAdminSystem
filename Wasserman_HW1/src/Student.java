@@ -66,10 +66,6 @@ public class Student extends User implements IStudent, Serializable{
 		}
 	}
 
-	@Override
-	public void Exit() {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 }

@@ -15,7 +15,7 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
-		System.out.println("Hello");
+		
 		adminUsername = "Admin";
 		adminPassword = "Admin001";
 		CourseData.main();
@@ -41,31 +41,11 @@ public class Main {
          }catch(Exception e){
 		System.out.println(e);
          }
-//	try {
-//		FileInputStream fis = new FileInputStream("Serialized_Students");
-//        ObjectInputStream ois = new ObjectInputStream(fis);
-//        ArrayList<Student> e = (ArrayList) ois.readObject();
-//        
-//        ois.close();
-//        fis.close();
-//        System.out.println("a");
-//        for(int i = 0;i<e.size();i++) {
-//        	System.out.println(e.get(i).getFname());
-//        }
-//	}catch(Exception f) {
-//		f.printStackTrace();
-//	}
-
-      
 		do {
 			
 		login();
 		}while(isRunning);}
 	
-		
-		
-		
-		
 	
 	public static void saveObject(Object e,String fileName) throws IOException{
 		FileOutputStream fos= new FileOutputStream(fileName);
@@ -132,10 +112,10 @@ public class Main {
 					studentUI();
 					return;
 					
-				} else {
+				} 
 					System.out.println("The username or password you entered is wrong");
 					
-				}
+				
 			}
 			
 		case 3:
@@ -156,91 +136,21 @@ public class Main {
 		switch(resp) {
 		
 		case 1:
-			do {
-			isMakingCourse = true;
-			String courseName, courseId, courseInstructor,sectionNumber,location, myString;
-			int maxReg;
-			System.out.println("Course Name: ");
-			courseName = response.nextLine();
-			
-			
-			System.out.println("Course Id: ");
-			courseId = response.nextLine();
-		
-			
-			System.out.println("Course Instructor: ");
-			courseInstructor = response.nextLine();
-			
-			System.out.println("Location: ");
-			location = response.nextLine();
-			
-			
-			System.out.println("Section Number: ");
-			sectionNumber = response.nextLine();
-			
-
-			System.out.println("Maximum Capacity: ");
-			String aString = response.nextLine();
-			maxReg = Integer.parseInt(aString);
-			
-			System.out.println("Confirm add Course");
-
-			System.out.println("1. Confirm \n 2. Restart course adding process \n 3. Exit ");
-			
-			String conf = response.nextLine().trim();
-			
-			switch(Integer.parseInt(conf)) {
-			
-			case 1:
-				
-				try {
-				myAdmin.createCourse(courseName, courseId, courseInstructor, sectionNumber, location, maxReg);
-				System.out.println("Course Created");}catch(Exception e) {
-					System.out.println(e);
-				}
-				isMakingCourse = false;
-				break;
-			case 2:
-				continue;
-			case 3:
-				isMakingCourse = false;
-				break;
-			}
-			}while(isMakingCourse);
+			myAdmin.createCourse();
 			break;
 		case 2:
-			String targetID,targetSectionNumber;
-			System.out.println("Delete a Course: \n Course ID");
-			targetID = response.nextLine();
-			System.out.println("Course Section Number");
-			targetSectionNumber = response.nextLine(); //Write code in case that course is not in allCourses
-			myAdmin.deleteCourse(targetID, targetSectionNumber);
+			myAdmin.deleteCourse();
 			break;
 		case 3:
+			myAdmin.editCourse();
 			break;
 		case 4:
-			System.out.println("View a Course: \n Course ID");
-			targetID = response.nextLine();
-			System.out.println("Course Section Number");
-			targetSectionNumber = response.nextLine();
-			myAdmin.displayCourseInfo(targetID, targetSectionNumber);
-			
+			myAdmin.displayCourseInfo();
 			break;
 		case 5:
-			System.out.println("Register a student into the System");
-			System.out.println("First Name");
-			String studentFName  = response.nextLine();
-			System.out.println("Last Name");
-			String studentLName  = response.nextLine();
-			System.out.println("User Name");
-			String studentUName  = response.nextLine();
-			System.out.println("Password");
-			String studentPWord  = response.nextLine();
-		//	Student e = new Student(studentUName, studentPWord, studentFName, studentLName);
-			myAdmin.registerStudent(studentUName, studentPWord, studentFName, studentLName);
-			//Problem is HERE. THIS ISNT SAVING THE STUDENT CORRECTLY
+			myAdmin.registerStudent();
 			try{
-				saveObject(CourseData.getAllStudents(),"Serialized_Students");
+				Main.saveObject(CourseData.getAllStudents(),"Serialized_Students");
 			}catch(Exception z) {
 				System.out.println("Student Not Saved");
 				System.out.println(z);
@@ -250,15 +160,13 @@ public class Main {
 			myAdmin.viewAllCourses();
 			break;
 		case 7:
-			for(Course i: CourseData.getAllCourses()) {
-				if(i.checkFull()==true) {
-					//System.out.println(myAdmin.displayCourseInfo(i.getCourseId(), i.getSectionNumber()))
-				}
-			}
+			myAdmin.viewAllFull();
 			break;
 		case 8:
+			myAdmin.writeFull();
 			break;
 		case 9:
+			myAdmin.sortCourses();
 			break;
 		case 10:
 			isAdmin = false;
@@ -272,6 +180,7 @@ public class Main {
 		System.out.println("1. View all courses \n 2. View open courses \n 3. Enroll in a course \n 4. Drop a course \n 5. View your current schedule \n 6. Exit");
 		Scanner scannerA = new Scanner(System.in);
 		String rep = scannerA.nextLine();
+		
 		isStudent = true;
 		
 		try {
@@ -317,8 +226,10 @@ public class Main {
 			System.out.println(e);
 			System.out.println("Invalid input... Please enter integers only");
 			studentUI();
-		}}while(isStudent);
-	}}
+		}
+		}while(isStudent);
+	}
+	}
 
 
 
