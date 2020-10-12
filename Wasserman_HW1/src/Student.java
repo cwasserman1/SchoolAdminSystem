@@ -28,6 +28,7 @@ public class Student extends User implements IStudent{
 		for(int i = 0; i<CourseData.getAllCourses().size();i++) {
 			if(CourseData.getAllCourses().get(i).getCourseId().equals(courseId)&&CourseData.getAllCourses().get(i).getSectionNumber().equals(sectionNumber)) {
 				CourseData.getAllCourses().get(i).addStudent(new Student(username,password,fname,lname));
+				schedule.add(CourseData.getAllCourses().get(i));
 			}
 		}
 		

@@ -7,6 +7,7 @@ public class Main {
 	static CourseData myData;
 	static boolean isStudent;
 	private static Admin myAdmin;
+	private static Student currentStudent;
 	private static String adminUsername;
 	private static String adminPassword;
 	public static boolean goBack;
@@ -20,20 +21,95 @@ public class Main {
 		isRunning = true;
 		
 		myAdmin = new Admin("Admin","Admin001","Mr","Admin");
-		System.out.println("Admin is "+ myAdmin);
+//		ArrayList<String[]> myCourses;
+//		try {
+//		myCourses= readCSV();
+//		for(int k = 0; k <myCourses.size();k++) {
+//				String courseName = myCourses.get(k)[0];
+//				String courseId = myCourses.get(k)[1]; 
+//				String courseInstructor = myCourses.get(k)[2];
+//				String sectionNumber = myCourses.get(k)[3];
+//				String location = myCourses.get(k)[4];
+//				int maxReg = Integer.parseInt(myCourses.get(k)[5]);
+//				myAdmin.createCourse(courseName, courseId, courseInstructor, sectionNumber, location, maxReg);
+//				
+//		}
+//		try {
+//			saveObject(CourseData.getAllCourses(), "serialCourses");
+//			}catch(Exception e) {
+//				System.out.println(e);
+//			}
+//			
+//		}catch(Exception e) {
+//			System.out.println(e);
+//		}
+		ArrayList<Course> csvCourses = new ArrayList<Course>();
+	try {
+		 FileInputStream fis = new FileInputStream("myfile");
+         ObjectInputStream ois = new ObjectInputStream(fis);
+         csvCourses = (ArrayList<Course>) ois.readObject();
+         ois.close();
+         fis.close();
+         for(Course i : csvCourses) {
+        	 
+         }
+         }catch(Exception e){
+		System.out.println(e);
+	}
 		do {
 		login();
 		}while(isRunning);
 		
 		
+		
+		
 	}
+	public static void saveObject(Object e,String fileName) throws IOException{
+		FileOutputStream fos= new FileOutputStream(fileName);
+        ObjectOutputStream oos= new ObjectOutputStream(fos);
+        oos.writeObject(e);
+        oos.close();
+        fos.close();
+
+	}
+//	public static Object loadObject(String fileName) throws IOException{
+//		try {
+//		FileInputStream fis = new FileInputStream(fileName);
+//        ObjectInputStream ois = new ObjectInputStream(fis);
+//        Object e =  ois.readObject();
+//        ois.close();
+//        fis.close();}catch (ClassNotFoundException a){
+//        	System.out.println("File not found");
+//        	a.printStackTrace();
+//       }
+//		return e;
+//		}
+//	
+		
+		public static ArrayList<String[]> readCSV() throws IOException {
+		   
+		    String file =  "/Users/colewasserman/Desktop/CS102 Data Structures/UniversityCourses.csv";
+		    ArrayList<String[]> content = new ArrayList<>();
+		    try(BufferedReader br = new BufferedReader(new FileReader(file))) {
+		        String line = "";
+		        while ((line = br.readLine()) != null) {
+		            content.add(line.split(","));
+		        }
+		    } catch (FileNotFoundException e) {
+		      System.out.println("File Not Found");
+		    }
+		    return content;
+		}
+
+    
+	
 	public static void login(){
 		Scanner sc = new Scanner(System.in);
 		String resp;
 		String enteredUsername, enteredPassword;
 		System.out.println("1. Admin Login");
 		System.out.println("2.  Student Login");
-		System.out.println("2.  Exit");
+		System.out.println("3.  Exit");
 		resp = sc.nextLine();
 		switch(Integer.parseInt(resp)) {
 		case 1:
@@ -58,7 +134,11 @@ public class Main {
 			for(Student i: CourseData.getAllStudents()) {
 				if(i.getUsername().equals(enteredUsername)&&i.getPassword().equals(enteredPassword)){
 					System.out.println("You are logged in as "+ i.getFname()+" "+i.getLname());
+					//currentStudent = new Student(i.getUsername(),i.getPassword(),i.getFname(),i.getLname());
+					currentStudent = CourseData.getAllStudents().get(CourseData.getAllStudents().indexOf(i));
+		
 					studentUI();
+					
 				} else {
 					System.out.println("The username or password you entered is wrong");
 					studentUI();
@@ -190,7 +270,51 @@ public class Main {
 	}while(isAdmin);}
 	
 	public static void studentUI() {
+		do {
+		System.out.println("1. View all courses \n 2. View open courses \n 3. Enroll in a course \n 4. Drop a course \n 5. View your current schedule");
+		Scanner scannerA = new Scanner(System.in);
+		String rep = scannerA.nextLine();
+		isStudent = true;
 		
+		try {
+		switch(Integer.parseInt(rep.trim())) {
+			case 1:
+				currentStudent.viewAllCourses();
+				break;
+			case 2:
+				currentStudent.viewAllCourses();
+				break;
+			case 3:
+				System.out.println("Enter the following information of the course you could like to enroll in: ");
+				
+				System.out.println("Course ID: ");
+				String enrollID = scannerA.nextLine().trim();	
+				
+				System.out.println("Section Number ");
+				String enrollSectionNumber = scannerA.nextLine().trim();
+				currentStudent.enrollInCourse(enrollID, enrollSectionNumber);
+				break;
+			case 4:
+				System.out.println("Enter the following information of the course you could like to drop: ");
+				
+				System.out.println("Course ID: ");
+				String dropID = scannerA.nextLine().trim();	
+				
+				System.out.println("Section Number ");
+				String dropSectionNumber = scannerA.nextLine().trim();
+				currentStudent.dropCourse(dropID, dropSectionNumber);
+				break;
+				
+			case 5:
+				currentStudent.viewCurrentReg();
+				break;
+				
+		
+		}
+		}catch(Exception e) {
+			System.out.println("Invalid input... Please enter integers only");
+			studentUI();
+		}}while(isStudent);
 	}}
 
 

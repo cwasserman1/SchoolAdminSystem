@@ -31,7 +31,7 @@ public class User {
 			count++;
 			System.out.println("Course"+count);
 			System.out.println(" Name: "+i.getCourseName()+"\n ID: "+i.getCourseId()+"\n Instructor: "+i.getCourseInstructor()+ "\n Section Number: "+i.getSectionNumber());
-			System.out.println(" Location: "+i.getLocation()+"\n Max Capacity: "+i.getMaxReg());
+			System.out.println(" Location: "+i.getLocation()+"\n Max Capacity: "+i.getMaxReg()+"\n Current capacity: "+ i.getCurrentReg());
 		}
 	
 	}
