@@ -7,7 +7,6 @@ public class Admin extends User implements IAdmin{
 
 	@Override
 	public void createCourse(String courseName, String courseId, String courseInstructor, String sectionNumber, String location, int maxReg) {
-
 		CourseData.addCourse(courseName, courseId, courseInstructor, sectionNumber, location, maxReg);
 	}
 

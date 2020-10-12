@@ -37,5 +37,11 @@ public class CourseData {
 		}
 		
 	}
+	public static void setAllCourses(ArrayList<Course> allCourses) {
+		CourseData.allCourses = allCourses;
+	}
+	public static void setAllStudents(ArrayList<Student> allStudents) {
+		CourseData.allStudents = allStudents;
+	}
 	
 }

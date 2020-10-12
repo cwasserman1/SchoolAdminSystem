@@ -8,7 +8,9 @@ public class User {
 		this.fname = fname;
 		this.lname = lname;
 	}
-
+	public User() {
+		
+	}
 	public String getUsername() {
 		return username;
 	}
