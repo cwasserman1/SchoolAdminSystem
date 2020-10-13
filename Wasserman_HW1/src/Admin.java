@@ -82,12 +82,37 @@ public class Admin extends User implements IAdmin{
 	public void editCourse() {
 		Scanner sc = new Scanner(System.in);
 		try {
-			System.out.println("Select the course details you would lke to edit");
+			System.out.println("Enter the following information about the course you would like to edit");
+			System.out.println("Course ID");
+			String ID = sc.nextLine();
+			System.out.println("Section Number");
+			String sectionNumber = sc.nextLine();
 			
-		}catch(Exception e) {
-			System.out.println(e);
-		}
-	}
+			
+			for(Course i: CourseData.getAllCourses()) {
+				if(i.getCourseId().equals(ID)&&i.getSectionNumber().equals(sectionNumber)) {
+					System.out.println("What details would you like to edit?");
+					System.out.println("1. Instructor \n 2. Location \n Maximum Capacity");
+					String resp = sc.nextLine();
+					switch(Integer.parseInt(resp)) {
+					case 1:
+						System.out.println("New instructor name: ");
+						resp = sc.nextLine();
+						CourseData.allCourses.get(CourseData.allCourses.indexOf(i)).setCourseInstructor(resp);
+						break;
+					case 2:
+						System.out.println("New Location name: ");
+						resp = sc.nextLine();
+						CourseData.allCourses.get(CourseData.allCourses.indexOf(i)).setLocation(resp);
+						
+						break;
+					
+					}
+				}
+				}
+				}catch(Exception e) {
+					System.out.println(e);}}
+		
 
 	@Override
 	public void displayCourseInfo() {

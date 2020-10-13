@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 public class CourseData {
-	private static ArrayList<Course> allCourses;
+	public static ArrayList<Course> allCourses;
 	private static ArrayList<Student> allStudents;
 	private static ArrayList<User> allUsers;
 	public static String adminUsername;

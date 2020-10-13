@@ -220,7 +220,6 @@ public class Main {
 				isStudent = false;
 				login();
 				break;
-		
 		}
 		}catch(Exception e) {
 			System.out.println(e);

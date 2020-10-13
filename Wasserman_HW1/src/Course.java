@@ -50,7 +50,9 @@ public class Course implements Serializable{
 	public int getMaxReg() {
 		return maxReg;
 	}
-
+//	public void setMaxReg(int max) {
+//		this.maxReg = max;
+//	}
 	public ArrayList<Student> getListOfReg() {
 		return listOfReg;
 	}
